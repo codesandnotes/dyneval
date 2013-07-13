@@ -1,0 +1,27 @@
+<html>
+	<body>
+		<h1>DynEval</h1>
+		
+		<h2>A Concordion extension that dynamically evaluates markups in the specification documents.</h2>
+		
+		<h3>Why DynEval?</h3>
+		
+		<p>
+			Why on Earth would someone want to evaluate reference markups <i>&#224; la <abbr>JSP</abbr> Expression Language</i> in a specification document? Indeed shouldn't such a document be clear and stable? Introducing "variables" sure would not help that! <br/>
+			In fact, I would say one should avoid using DynEval... unless he/she is facing one of those real-life situations that demand such a solution.
+		</p>
+		<p>
+			In my own particular case, I had to write tests for an application that would be shared between various clients, all using the same data structure, but having different data.<br/>
+			Of course, each client wanted the specifications to use concrete examples with actual data extracted from their set. That meant that client 1 wanted that specification to reference user with ID 123, while client 2 wanted that specification to talk about their user with ID 456. <br/>
+			Writing as many versions of the specs as there were clients was out of the question. And of course the clients were not keen on the obvious solution of having <i>one</i> data set, a "fake", that would represents the clients' typical situations. <br/>
+			So the next best idea I could come up with was to provide a way for them to "configure" their specifications so that each client would have a report that uses their data. <sub>(Although I am almost certain that in the end this solution will bring a whole new bunch of issues...)</sub>
+		</p>
+		
+		<br/>
+		<ul type="square">
+			<li><a href="Features.html">What DynEval does</a></li>
+			<li><a href="Setup.html">Setting DynEval up</a></li>
+			<li><a href="Index.html">Back to Home</a></li>
+		</ul>
+	</body>
+</html>

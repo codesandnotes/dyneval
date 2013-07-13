@@ -1,0 +1,84 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+	<body>
+		<h1>DynEval</h1>
+		
+		<h2>A Concordion extension that dynamically evaluates markups in the specification documents.</h2>
+		
+		<h3>Setting up DynEval</h3>
+		
+		<h4>Registering DynEval as a Concordion extension</h4>
+		<p>
+			To set up DynEval, one must start by adding the extension to Concordion. <br/>
+			There are various documented ways for doing this. One would be to use the <em><code>@Extensions</code></em> annotation: <br/>
+			<br/>
+			<code>
+				@Extensions(DynEval.class)<br/>
+				@RunWith(ConcordionRunner.class)<br/>
+				public class MyFixture {<br/>
+				&#160;&#160;&#160;&#160;...<br/>
+				}<br/>
+			</code>
+		</p>
+		
+		<h4>Manually registering values for evaluating references</h4>
+		<p>
+			When DynEval encounters a reference in a Concordion specification document, it looks to replace that reference with a matching value. For that to happen, one must first register those values and link them to keys/references. <br/>
+			The easiest way to do this is to register values "one-by-one".<br/>
+			This is done by invoking <code>DynEval.putValue(key, value)</code>. <br/>
+			<br/>
+			<code>
+				public class MyFixture {<br/>
+				&#160;&#160;&#160;&#160;public MyFixture() {<br/>
+				&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;DynEval.putValue("one", "1");<br/>
+				&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;DynEval.putValue("two", "2");<br/>
+				&#160;&#160;&#160;&#160;}<br/>
+				}<br/>
+			</code> 
+		</p>
+		<p class="example">
+			Given a fixture class,<br/>
+			When registering reference "<b>one</b>" as "<b>1</b>" and reference "<b>two</b>" as "<b>2</b>"<br/>
+			Then a Concordion parameter set with a concatenation of those references will be parsed as "<b concordion:set="#text">${one}${two}</b>"<br/>
+			And a "<i>display()</i>" method call with that parameter should return "<span concordion:assertEquals="display(#text)">12</span>". 
+		</p>
+		
+		<h4>Using properties' files to define references</h4>
+		<p>
+			In most cases, one might want to define a list of references in a properties' file, such as:<br/>
+			<br/>
+			<code>
+				first.value=111<br/>
+				second.value=222<br/>
+			</code>
+			<br/>
+			To register the references in that properties' file, a <code>PropertiesBasedValuesProvider</code> instance must be set as DynEval's values provider.<br/>
+			<br/>
+			<code>
+				public class MyFixture {<br/>
+				&#160;&#160;&#160;&#160;public MyFixture() {<br/>
+				&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;DynEval.setValuesProvider(new PropertiesBasedValuesProvider("/path/to/references.properties"));
+				&#160;&#160;&#160;&#160;}<br/>
+				}<br/>
+			</code> 
+		</p>
+		<p class="example">
+			Given a file of properties written as follows: <br/>
+			<br/>
+			<code>
+				first.value=111<br/>
+				second.value=222<br/>
+			</code>
+			<br/>
+			And given a fixture class registering that properties' file using <code>PropertiesBasedValuesProvider</code>,<br/>
+			When invoking the "<i>display()</i>" method with the value "<b concordion:set="#text">111222</b>"<br/>
+			Then it should be possible to assert the method's result against a concatenation of the registered references' values: "<span concordion:assertEquals="display(#text)">${first.value}${second.value}</span>". 
+		</p>
+		
+		<br/>
+		<ul type="square">
+			<li><a href="Why.html">Why DynEval</a></li>
+			<li><a href="Features.html">What DynEval does</a></li>
+			<li><a href="Index.html">Back to Home</a></li>
+		</ul>
+	</body>
+</html>
