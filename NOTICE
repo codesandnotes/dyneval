@@ -1,0 +1,41 @@
+Through its Maven dependencies, DynEval uses the following software:
+
+Concordion 1.4.3
+Copyright (c) 2007-2008 concordion.org
+This product uses software developed by
+David Peterson (http://www.concordion.org/).
+
+ognl-2.6.9
+Copyright (c) 1997-2003 
+This products uses software developed by 
+Drew Davidson and Luke Blanshard.
+
+hamcrest-core-1.3
+Copyright (c) 2000-2006, www.hamcrest.org
+This product uses software developed at
+www.hamcrest.org
+
+xom 1.2.5
+Copyright 2004, 2005 Elliotte Rusty Harold
+This product uses software developed by 
+Elliotte Rusty Harold
+
+EasyMock 3.1
+Copyright 2001-2011 easymock.org
+This product uses software developed by
+OFFIS, Tammo Freese, Henri Tremblay
+
+JUnit 4.11
+This product uses software developed by
+the JUnit Team, www.junit.org
+
+cglib 2.2.2
+This product uses software developed by
+Juozas Baliuka, Chris Nokleberg, Matas Ramoska, Wes Biggs
+
+objenesis 1.2
+This product uses software developed by
+Joe Walnes, Henri Tremblay, Leonardo Mesquita
+
+
+(To those I have forgotten to mention: please forgive me and drop me a line!)
