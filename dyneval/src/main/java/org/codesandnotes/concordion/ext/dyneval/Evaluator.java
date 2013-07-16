@@ -6,21 +6,23 @@ import nu.xom.Text;
 import org.codesandnotes.concordion.ext.dyneval.providers.ValuesProvider;
 
 /**
- * This class is in charge of evaluating the references in a node to replace them with matching values. 
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements. See the NOTICE
+ * file distributed with this work for additional information regarding copyright ownership. The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the
+ * License. You may obtain a copy of the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+ */
+/**
+ * This class is in charge of evaluating the references in a node to replace them with matching values.
+ * 
+ * @author Diego Pappalardo
  */
 public class Evaluator {
-
-	private class Indexes {
-
-		public int beginIndex;
-
-		public int endIndex;
-
-		public Indexes(int beginIndex, int endIndex) {
-			this.endIndex = endIndex;
-			this.beginIndex = beginIndex;
-		}
-	}
 
 	private static final String ESCAPED_MARKUP_CLOSING = "\\}";
 
@@ -32,12 +34,19 @@ public class Evaluator {
 
 	private ValuesProvider valuesProvider;
 
+	/**
+	 * The default constructor for this class.
+	 * 
+	 * @param valuesProvider
+	 *            The ValuesProvider implementation this Evaluator will use to retrieve values while evaluating a Node's
+	 *            references.
+	 */
 	public Evaluator(ValuesProvider valuesProvider) {
 		this.valuesProvider = valuesProvider;
 	}
 
 	/**
-	 * Recursively evaluates the references in the specified node's children.  
+	 * Recursively evaluates the references in the specified node's children.
 	 */
 	public void evaluateChildrenOf(Node node) {
 
@@ -76,6 +85,13 @@ public class Evaluator {
 		}
 	}
 
+	/**
+	 * Adds a reference to the list of references used evaluate a Node.
+	 */
+	public void putValue(String key, String value) {
+		valuesProvider.put(key, value);
+	}
+
 	private String extractKey(String text, Indexes indexes) {
 		return text.substring(indexes.beginIndex + MARKUP_OPENING.length(), indexes.endIndex);
 	}
@@ -96,9 +112,11 @@ public class Evaluator {
 
 				// Might that actually be an escaped opening markup?
 				int openingLengthDifference = ESCAPED_MARKUP_OPENING.length() - MARKUP_OPENING.length();
-				int escapedMarkupOpeningPosition = text.indexOf(ESCAPED_MARKUP_OPENING, markupOpeningIndex - openingLengthDifference);
+				int escapedMarkupOpeningPosition = text.indexOf(ESCAPED_MARKUP_OPENING, markupOpeningIndex
+						- openingLengthDifference);
 
-				if (escapedMarkupOpeningPosition < 0 || escapedMarkupOpeningPosition >= (markupOpeningIndex + MARKUP_OPENING.length())) {
+				if (escapedMarkupOpeningPosition < 0
+						|| escapedMarkupOpeningPosition >= (markupOpeningIndex + MARKUP_OPENING.length())) {
 
 					int markupClosingIndex = text.indexOf(MARKUP_CLOSING, markupOpeningIndex);
 
@@ -106,9 +124,11 @@ public class Evaluator {
 
 						// Might that actually be an escaped closing markup?
 						int closingLengthDifference = ESCAPED_MARKUP_CLOSING.length() - MARKUP_CLOSING.length();
-						int escapedMarkupClosingPosition = text.indexOf(ESCAPED_MARKUP_CLOSING, markupClosingIndex - closingLengthDifference);
+						int escapedMarkupClosingPosition = text.indexOf(ESCAPED_MARKUP_CLOSING, markupClosingIndex
+								- closingLengthDifference);
 
-						if (escapedMarkupClosingPosition < 0 || escapedMarkupClosingPosition >= (markupClosingIndex + MARKUP_CLOSING.length())) {
+						if (escapedMarkupClosingPosition < 0
+								|| escapedMarkupClosingPosition >= (markupClosingIndex + MARKUP_CLOSING.length())) {
 
 							indexes = new Indexes(markupOpeningIndex, markupClosingIndex);
 						}
@@ -127,10 +147,19 @@ public class Evaluator {
 	}
 
 	private String replaceReferenceWithValue(String text, Indexes indexes, String value) {
-		return new StringBuilder().append(text.substring(0, indexes.beginIndex)).append(value).append(text.substring(indexes.endIndex + 1)).toString();
+		return new StringBuilder().append(text.substring(0, indexes.beginIndex)).append(value)
+				.append(text.substring(indexes.endIndex + 1)).toString();
 	}
 
-	public void putValue(String key, String value) {
-		valuesProvider.put(key, value);
+	private class Indexes {
+
+		public int beginIndex;
+
+		public int endIndex;
+
+		public Indexes(int beginIndex, int endIndex) {
+			this.endIndex = endIndex;
+			this.beginIndex = beginIndex;
+		}
 	}
 }
