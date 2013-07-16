@@ -9,3 +9,5 @@ Why would one need to make a "dynamic" specification?
 In our case, it was a matter of delivering specifications that could be adapted to multiple clients: each client wanted to have proof that our application worked up to specs with its client-specific data set. So instead of writing different "versions" of the specs, we ended making the documents configurable. 
 
 Feel free to read the very short and sweet documentation that comes with the extension. It has been written with the help of... Concordion, of course! 
+
+DynEval has been written by Diego Pappalardo
