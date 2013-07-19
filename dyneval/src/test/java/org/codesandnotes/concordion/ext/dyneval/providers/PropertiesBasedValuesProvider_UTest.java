@@ -1,9 +1,10 @@
 package org.codesandnotes.concordion.ext.dyneval.providers;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URL;
 
 import org.junit.Test;
 
@@ -11,6 +12,10 @@ public class PropertiesBasedValuesProvider_UTest {
 
 	@Test
 	public void AddValuesToTheListLoadedFromThePropertiesFile() throws IOException {
+
+		Class<PropertiesBasedValuesProvider_UTest> clazz = PropertiesBasedValuesProvider_UTest.class;
+		URL thisUrl = clazz.getResource(clazz.getSimpleName() + ".class");
+		System.out.println(thisUrl.getPath());
 
 		ValuesProvider valuesProvider = new PropertiesBasedValuesProvider(
 				"/org/codesandnotes/concordion/ext/dyneval/providers/PropertiesBasedValuesProvider.properties");

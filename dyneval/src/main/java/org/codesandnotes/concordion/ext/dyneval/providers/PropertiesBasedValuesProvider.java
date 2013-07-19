@@ -19,7 +19,7 @@ import java.util.Properties;
  * specific language governing permissions and limitations under the License.
  */
 /**
- * A ValuesProvider implementation that uses <i>.properties</i> files to retrieve values.  
+ * A ValuesProvider implementation that uses <i>.properties</i> files to retrieve values.
  * 
  * @author Diego Pappalardo
  */
@@ -28,9 +28,10 @@ public class PropertiesBasedValuesProvider implements ValuesProvider {
 	private Properties properties = new Properties();
 
 	/**
-	 * Default constructor for PropertiesBasedValuesProvider. 
+	 * Default constructor for PropertiesBasedValuesProvider.
 	 * 
-	 * @param classPathToFile The classpath to the <i>.properties</i> file that contains the values to retrieve. 
+	 * @param classPathToFile
+	 *            The classpath to the <i>.properties</i> file that contains the values to retrieve.
 	 */
 	public PropertiesBasedValuesProvider(String classPathToFile) throws IOException {
 
@@ -49,7 +50,8 @@ public class PropertiesBasedValuesProvider implements ValuesProvider {
 
 	private URL getResourceAsURL(String classPathToFile) throws FileNotFoundException {
 
-		URL resource = PropertiesBasedValuesProvider.class.getResource(classPathToFile);
+		Class<PropertiesBasedValuesProvider> clazz = PropertiesBasedValuesProvider.class;
+		URL resource = clazz.getResource(classPathToFile);
 
 		if (resource == null)
 			throw new FileNotFoundException("Could not find '" + classPathToFile + "' ");
